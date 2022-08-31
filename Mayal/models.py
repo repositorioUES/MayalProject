@@ -25,9 +25,7 @@ class Subcategoria(models.Model):
 # ---SUB-CATEGORIA -------------------------------------------------------------------
 class Producto(models.Model):
     id = models.BigAutoField(primary_key=True)
-
     foto = models.ImageField(upload_to='Galeria')
-
     nombreProd = models.CharField(max_length=250)
     coleccion = models.CharField(max_length=250)
     material = models.CharField(max_length=250)

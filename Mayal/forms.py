@@ -15,11 +15,10 @@ class CategoriaForm(forms.ModelForm):
 	class Meta:
 		model = Categoria
 		fields = [
-			 'nombreCat',
+			 'nombreCat'
 		]
 		labels = {
-			'nombreCat': 'Nombre de la Categoría',
-
+			'nombreCat': 'Nombre de la Categoría'
 		}
 
 class SubcategoriaForm(forms.ModelForm):

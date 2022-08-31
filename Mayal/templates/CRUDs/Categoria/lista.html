@@ -1,7 +1,7 @@
 {% extends 'administrador/base.html' %}
 {% load static %}
 
-{% block title %}<title>Listado de Usuarios</title>{% endblock title%}
+{% block title %}<title>Listado de Categorias</title>{% endblock title%}
 
 {% block content %}
     <div class="container-fluid px-4">
@@ -60,9 +60,9 @@
 
             }).then(function(result) {
                 if (result.isConfirmed) {
-                    window.location.href = "/borrarCategoria/"+id+"/"
+                    window.location.href = "/administrador/borrarCategoria/"+id
                 }
             })
         }
     </script>
-{% endblock  %}
+{% endblock js%}
