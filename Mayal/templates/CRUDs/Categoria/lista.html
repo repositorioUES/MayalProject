@@ -43,6 +43,42 @@
             </div>
         </div>
         <!-- Fin Seccion tablas-->
+        
+        <!-- Seccion Tablas-->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>Listado de Subcategorias
+            </div>&nbsp;
+
+            <div class="d-flex justify-content start">&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-primary" href="{% url 'crear_subcategoria' %}" ><i class="fa fa-plus" aria-hidden="true"></i> Nueva Subcategoria</a>&nbsp;
+            </div>
+
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Gestionar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in categorias %}
+                        <tr>
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.nombreCat }}</td>
+                    
+                            <td> <a href="{% url 'modificar_categoria' c.id %}"><i class="fa fa-pencil-square fa-2x" aria-hidden="true" style="font-size:24px;color:rgb(238, 204, 9);text-shadow:2px 2px 4px #000000;"></i></a>&nbsp;&nbsp;
+                                 <a href="#" onclick="eliminarCategoria({{ c.id }})"><i class="fa fa-minus-square fa-2x" aria-hidden="true" style="font-size:24px;color:rgb(212, 10, 10);text-shadow:2px 2px 4px #000000;"></i></a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Fin Seccion tablas-->
 
 
 {% endblock content%}
