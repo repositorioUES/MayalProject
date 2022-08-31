@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        {% block title %}<title></title>{% endblock title%}
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         {% load static %}
 		<link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -26,9 +26,10 @@
             <!-- Fin Seccion SIDEBAR-->
 
             <!-- Seccion BODY-->
-            {% block content %}
+
             <div id="layoutSidenav_content">
                 <main>
+                    {% block content %}
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
@@ -114,5 +115,20 @@
         <script type="text/javascript" src="{% static 'js/datatables-simple-demo.js' %}"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        {% block mensajesJS %}
+            <!-- Funcion para imprimir mensajes  -->
+            {% if messages%}
+                {% for m in messages%}
+                    <script>
+                        swal({
+                            icon: 'success',
+                            text: '{{ m }}',
+                            timer: 3000,
+                        });
+                    </script>
+                {%endfor%}
+            {% endif %}
+        {% endblock mensajesJS %}
     </body>
 </html>

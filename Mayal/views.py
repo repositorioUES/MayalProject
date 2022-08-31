@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from Mayal.models import *
 from Mayal.forms import *
 from django.views.generic.edit import View, UpdateView, CreateView, DeleteView
@@ -7,6 +6,7 @@ from django.views.generic.list import ListView
 from django.contrib import messages
 from django.shortcuts import render, redirect, render,get_object_or_404
 from django.urls import reverse_lazy, reverse
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -26,17 +26,17 @@ class CrearCategoria(CreateView):
     form_class = CategoriaForm
     success_url = reverse_lazy('listar_categorias')
 
-class ModificarCaategoria(UpdateView):
+class ModificarCategoria(UpdateView):
     model = Categoria
     template_name = 'CRUDs/Categoria/crear.html'
     form_class = CategoriaForm
     success_url = reverse_lazy('listar_categorias')
 
 def borrarCategoria(request, id):
-    cat = get_object_or_404(Categoria, id=id)
+    categoria = get_object_or_404(Categoria, id=id)
 
-    cat.delete()
-    messages.success(request, " Categoria eliminado correctamente")
+    categoria.delete()
+    messages.success(request, " Categoria eliminada correctamente")
     return redirect(to="listar_categorias")
 
 # CRUD ------ SUBCATEGORIA----------------------------------------------------------------------------------
@@ -58,8 +58,9 @@ class ModificarCategoria(UpdateView):
     success_url = reverse_lazy('listar_categorias')
 
 def borrarSubcategoria(request, id):
-    cat = get_object_or_404(Subcategoria, id=id)
+    subcategoria = get_object_or_404(Subcategoria, id=id)
 
-    cat.delete()
-    messages.success(request, " Subcategoria eliminado correctamente")
+    subcategoria.delete()
+    messages.success(request, " Subcategoria eliminada correctamente")
+
     return redirect(to="listar_categorias")

@@ -1,29 +1,20 @@
 {% extends 'administrador/base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+
 {% block title %}<title>Registrar Categorias</title>{% endblock title%}
 
 {% block content %}
-
 <div class="container">
-<br>
-<br>
-<br>
     <div class="row justify-content-center">
         <div class="col-lg-7">
             <div class="card shadow-lg border-0 rounded-lg mt-5">
                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Nueva Categoria</h3></div>
                 <div class="card-body">
-                    {% if form.non_field_errors %}
-                            {% for error in form.non_field_errors %}
-                                <p class="text-danger">{{ error }}
-                            {% endfor %}
-                        {% endif %}
-
-                    <form method="post"  role="form" action="">
+                    <form method="post" role="form" action="">
                         {% csrf_token %}
                         <div class="form-floating mb-3">
-                            {{ form.nombreCat|as_crispy_field }}
+                            {{form.nombreCat|as_crispy_field}}
                         </div>
 
                         <div class="mt-4 mb-0">
@@ -38,4 +29,6 @@
         </div>
     </div>
 </div>
+
+    
 {% endblock content %}
