@@ -31,3 +31,20 @@ class SubcategoriaForm(forms.ModelForm):
 			'nombreSub': 'Nombre de la Subcategoría',
             'categoria': 'Categoría a la que pertenece',
 		}
+
+class ProductoForm(forms.ModelForm):
+	class Meta:
+		model = Producto
+		fields = [
+			 'nombreProd','coleccion','material','color','precio','existencias','categoria','subCategoria'
+		]
+		labels = {
+			'nombreProd': 'Nombre del Producto',
+			'coleccion':'Colección',
+			'material':'Material',
+			'color':'Color',
+			'precio':'Precio',
+			'existencias':'Existencias',
+            'categoria': 'Categoría',
+			'subCategoria':'Subcategoria',
+		}
