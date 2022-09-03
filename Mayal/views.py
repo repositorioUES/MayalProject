@@ -80,7 +80,7 @@ class CrearProducto(CreateView):
 
 class ModificarProducto(UpdateView):
     model = Producto
-    template_name = 'CRUDs/Producto/crear.html'
+    template_name = 'CRUDs/Producto/editar.html'
     form_class = ProductoForm
     success_url = reverse_lazy('listar_productos')
 

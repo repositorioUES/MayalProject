@@ -3,6 +3,7 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.views.static import serve
 from .views import *
+from .ajax import *
 
 urlpatterns = [
     path('administrador', index, name="index"),
@@ -24,9 +25,14 @@ urlpatterns = [
     path('administrador/agregarImagenes/<int:pk>/',AgregarImagenes, name='agregar_imagenes'),
     path('administrador/guardarImagenes/<int:pk>/',GuardarImagenes, name='guardar_imagenes'),
     path('administrador/borrarImagen/<id>/',borrarImagen, name='borrar_imagen'),
+
+    # URLs para las funciones AJAX ----------------------------------------------------------------------------------------------
+    path('ajax/load_Subcategorias/', load_Subcategorias, name='load_subcategorias'),
+    path('ajax/load_Subcategorias_Edit/', load_Subcategorias_Edit, name='load_subcategorias_Edit'),
     
 ]
 
+# Para mostrar las imagenes guardadas -----------------------------------------------------------------------------------------
 urlpatterns += [
     re_path(r'^media/(?P<path>.*)$', serve,{
         'document_root': settings.MEDIA_ROOT,

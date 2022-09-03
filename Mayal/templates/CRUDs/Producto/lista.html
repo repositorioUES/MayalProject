@@ -25,8 +25,8 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>Imágen Principal</th>
                                 <th>Precio</th>
-                                <th>Colección</th>
                                 <th>Categoria</th>
                                 <th>Subcategoria</th>
                                 <th>Gestionar</th>
@@ -36,20 +36,20 @@
                             {% for p in productos %}
                             <tr>
                                 
-                                <td>{{ p.nombreProd }}</td>
+                                <td align="center"  width="400">{{ p.nombreProd }} </td>
+                                <td align="center" width="150"> <img src=" {{ p.imagen.url }}" width="60" height="auto"/> </td>
                                 <td>$ {{ p.precio }}</td>
-                                <td>{{ p.coleccion }}</td>
                                 <td>{{ p.categoria }}</td>
                                 <td>{{ p.subCategoria }}</td>
                         
                                 <td> 
-                                    <a class="btn btn-primary" href="{% url 'agregar_imagenes' p.id %}" ><i class="fa fa-plus" aria-hidden="true"></i> Imagenes</a>
+                                    <a class="btn btn-primary" href="{% url 'agregar_imagenes' p.id %}" style="size:15px"><i class="fa fa-plus" aria-hidden="true"></i> Imagenes</a>
                                     &nbsp;
-                                    <a href="{% url 'modificar_producto' p.id %}"><i class="fa fa-pencil-square fa-2x" aria-hidden="true" style="font-size:24px;color:rgb(238, 204, 9);text-shadow:2px 2px 4px #000000;"></i></a>&nbsp;&nbsp;
-                                    <a href="#" onclick="eliminarProducto({{ p.id }})"><i class="fa fa-minus-square fa-2x" aria-hidden="true" style="font-size:24px;color:rgb(212, 10, 10);text-shadow:2px 2px 4px #000000;"></i></a>
+                                    <a class="btn btn-warning" href="{% url 'modificar_producto' p.id %}"><i class="fa fa-pencil fa-2x" aria-hidden="true" style="font-size:22px;color:rgb(255, 255, 255);text-shadow:2px 2px 4px #000000;"></i></a>&nbsp;&nbsp;
+                                    <a class="btn btn-danger"href="#" onclick="eliminarProducto({{ p.id }})"><i class="fa fa-trash fa-2x" aria-hidden="true" style="font-size:22px;color:rgb(255, 255, 255);text-shadow:2px 2px 4px #000000;"></i></a>
                                 </td>
                             </tr>
-                            {%endfor%}
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

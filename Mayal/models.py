@@ -26,14 +26,16 @@ class Subcategoria(models.Model):
 class Producto(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombreProd = models.CharField(max_length=250)
-    coleccion = models.CharField(max_length=250, null=True)
-    material = models.CharField(max_length=250)
-    color = models.CharField(max_length=250)
+    coleccion = models.CharField(max_length=250, null=True, blank=True)
+    material = models.CharField(max_length=250, null=True, blank=True)
+    color = models.CharField(max_length=250, null=True, blank=True)
     precio = models.DecimalField(max_digits = 5, decimal_places= 2)
-    existencias = models.IntegerField(null=True)
+    existencias = models.IntegerField(null=True, blank=True)
 
     categoria = models.ForeignKey('Categoria', on_delete = models.SET_NULL, null=True)
     subCategoria = models.ForeignKey('Subcategoria', on_delete = models.SET_NULL, null=True)
+
+    imagen = models.ImageField(upload_to='Galeria')
 
     def __str__(self):
         return self.nombreProd
