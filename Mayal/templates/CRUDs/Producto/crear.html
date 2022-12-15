@@ -7,44 +7,82 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-7">
+        <div class="col-lg-auto">
             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header"><h3 class="text-center font-weight-light my-4">Nuevo Producto</h3></div>
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">
+                        <img src="/../../static/Iconos/crear_objeto.png" width="100" height="auto"/>
+                        Nuevo Producto
+                    </h3>
+                </div>
                 <div class="card-body">
-                    <form method="post" role="form" action="" enctype="multipart/form-data">
+                    <form method="post" role="form" action="" enctype="multipart/form-data" id="uploadForm">
                         {% csrf_token %}
-                        <div class="form-floating mb-3">
-                            {{form.nombreProd|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.coleccion|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.material|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.color|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.precio|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.existencias|as_crispy_field}}
-                        </div>
 
-                        <div class="form-floating mb-3">
-                            {{form.categoria|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.subCategoria|as_crispy_field}}
-                        </div>
+                        <table>
+                            <tr>
+                                <td width="300" style="padding-right:5px;">
 
-                        <div class="form-floating mb-3">
-                            {{form.imagen|as_crispy_field}}
-                        </div>
+                                    <label><B>Campos Obligatorios</B></label>
 
+                                    <div class="form-floating mb-3">
+                                        {{form.nombreProd|as_crispy_field}}
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.categoria|as_crispy_field}}
+                                    </div>
+
+                                    <label><B>Campos Opcionales</B></label>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.coleccion|as_crispy_field}}
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.material|as_crispy_field}}
+                                    </div>
+                                </td>
+                                <td width="300" style="padding-right:5px;">
+
+                                    <label>   </label>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.precio|as_crispy_field}}
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.subCategoria|as_crispy_field}}
+                                    </div>
+
+                                    <label>   </label>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.existencias|as_crispy_field}}
+                                    </div>
+    
+                                    <div class="form-floating mb-3">
+                                        {{form.color|as_crispy_field}}
+                                    </div>
+                                </td>
+                                <td width="300" style="vertical-align: super; padding-top:28px;">
+                                    <div class="form-floating mb-3">
+                                        {{form.imagen|as_crispy_field}}
+                                    </div>
+
+                                    <div class="form-floating mb-3" align="center">
+                                        <img src="/../../static/Iconos/agregar_imagen.png" id="preview" width="300" height="auto" style="border-radius: 0.7rem;"/>
+                                        <h6> Imagen a subir </h6>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        
                         <div class="mt-4 mb-0">
-                            <div class="d-grid"><input type="submit" value="Finalizar" class="btn btn-primary btn-block"></div>
+                            <div align="center">
+                                <input type="submit"  value="Finalizar" class="btn btn-primary btn-block">&nbsp;&nbsp;
+                                <a class="btn btn-danger" href="{% url 'listar_productos' %}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -93,6 +131,22 @@
 // ===========================================================================
     function VaciarSelects(){
         $("#id_subCategoria").html('<option value="" selected = "selected">-----------</option>');
+    }
+//==================================================================================
+// Poner preview de la imagen a subir
+    $("#id_imagen").change(function () {
+        filePreview(this);
+    });
+    let element = document.getElementById("preview");
+
+    function filePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                element.src = (e.target.result).toString();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 //==================================================================================
 

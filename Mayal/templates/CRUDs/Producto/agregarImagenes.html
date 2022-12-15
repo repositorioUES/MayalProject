@@ -7,36 +7,59 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-7">
-            <div class="card shadow-lg border-0 rounded-lg mt-5">
+        <div class="col-lg-20">
+            <div class="card shadow-lg border-0 rounded-lg mt-20">
                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Agregar Imagenes a: {{ producto }}</h3>
-                    <div align="center"><img src=" {{ producto.imagen.url }}" width="300" height="auto"/></div>
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <div width="300" align="center">
+                                    <label><b>Imágen principal del producto</b></label>
+                                    <br>
+                                    <img src=" {{ producto.imagen.url }}" width="250" height="auto"/>
+                                </div>
+                            </td>
+                            <td width="100">
+
+                            </td>
+                            <td width="300" align="center">
+                                <div>
+                                    <form method="post" role="form" action=" {% url 'guardar_imagenes' producto.pk %}" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+                                        <div class="form-group m-3" align="center">
+                                            <H4>Seleccionar más Imagenes para subir</H4>
+                                            <br><br>
+                                            <input required name="imagenes" type="file" multiple class="form-control-file">
+                                        </div>
+                
+                                        <div class="mt-4 mb-0" align="center">
+                                            <a class="btn btn-danger" href="{% url 'listar_productos' %}"><i class="fa fa-arrow-left"
+                                                aria-hidden="true"></i> Regresar</a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <button type="submit" class="btn btn-success float-right"><i class="fa fa-check"
+                                                aria-hidden="true"></i> Guardar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div class="card-body">
-                    <form method="post" role="form" action=" {% url 'guardar_imagenes' producto.pk %}" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        
-                        <div class="form-group m-3" align="center">
-                            <label>Seleccionar más Imagenes para subir</label>
-                            <br><br>
-                            <input required name="imagenes" type="file" multiple class="form-control-file">
+                    {% if imagenesProducto %}
+                        <div align="center">
+                            <H5>Imagenes asociadas al producto</H5>
                         </div>
-
-                        <div class="mt-4 mb-0" align="center">
-                            <a class="btn btn-danger" href="{% url 'listar_productos' %}"><i class="fa fa-arrow-left"
-                                aria-hidden="true"></i> Regresar</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="submit" class="btn btn-success float-right"><i class="fa fa-check"
-                                aria-hidden="true"></i> Guardar</button>
-
-                            {% comment %} <div class="d-grid"><input type="submit" value="Finalizar" class="btn btn-primary btn-block"></div> {% endcomment %}
+                    {% else %}
+                        <div align="center">
+                            <H5>Éste producto no tiene imagenes asociadas</H5>
                         </div>
-                    </form>
-                    <br>
-                    <div class="row" align="center">
+                    {% endif %}
+                    <div class="row">
                         {% for ip in imagenesProducto %}
-                           
+                            <div class="col-4">
                                 <div class="card">
                                     <div class="card-body"   align="center">
                                         <img src=" {{ ip.imagen.url }}"  width="300" height="auto"  align="center"/>
@@ -45,10 +68,9 @@
                                         <a class="btn btn-danger" href="#" onclick="eliminarImagenProducto({{ ip.id }})"><i class="fa fa-trash" aria-hidden="true" style="font-size:24px;color:rgb(255, 255, 255);text-shadow:2px 2px 4px #000000;"></i></a>
                                     </div>
                                 </div>
-                       
+                            </div>
                         {% endfor %}
                     </div>
-
                 </div>
             </div>
         </div>

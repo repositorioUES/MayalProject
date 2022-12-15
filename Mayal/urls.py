@@ -21,6 +21,7 @@ urlpatterns = [
     path('administrador/crearProducto', CrearProducto.as_view(), name="crear_producto"),
     path('administrador/modificarProducto/<int:pk>', ModificarProducto.as_view(), name='modificar_producto'),
     path('administrador/borrarProducto/<id>',borrarProducto, name='borrar_producto'),
+    path('administrador/detalleProducto/',detalleProducto, name='detalle_producto'),
 
     path('administrador/agregarImagenes/<int:pk>/',AgregarImagenes, name='agregar_imagenes'),
     path('administrador/guardarImagenes/<int:pk>/',GuardarImagenes, name='guardar_imagenes'),

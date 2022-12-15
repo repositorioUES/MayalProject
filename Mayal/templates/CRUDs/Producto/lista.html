@@ -36,17 +36,18 @@
                             {% for p in productos %}
                             <tr>
                                 
-                                <td align="center"  width="400">{{ p.nombreProd }} </td>
-                                <td align="center" width="150"> <img src=" {{ p.imagen.url }}" width="60" height="auto"/> </td>
-                                <td>$ {{ p.precio }}</td>
-                                <td>{{ p.categoria }}</td>
-                                <td>{{ p.subCategoria }}</td>
+                                <td style="vertical-align: super;" width="400">{{ p.nombreProd }} </td>
+                                <td align="center" width="auto"><a title="Click para ver Detalles" onclick="return abrir_modal({{ p.id }})"> <img id="{{p.id}}" src=" {{ p.imagen.url }}" onmouseover="return resaltar({{ p.id }})" onmouseout="return normal({{ p.id }})" style="border-radius:0.7rem;" width="80" height="auto"/> </a></td>
+                                <td style="vertical-align: super;"> $ {{ p.precio }}</td>
+                                <td style="vertical-align: super;">{{ p.categoria }}</td>
+                                <td style="vertical-align: super;">{{ p.subCategoria }}</td>
                         
-                                <td> 
+                                <td style="vertical-align: super;"> 
                                     <a class="btn btn-primary" href="{% url 'agregar_imagenes' p.id %}" style="size:15px"><i class="fa fa-plus" aria-hidden="true"></i> Imagenes</a>
                                     &nbsp;
                                     <a class="btn btn-warning" href="{% url 'modificar_producto' p.id %}"><i class="fa fa-pencil fa-2x" aria-hidden="true" style="font-size:22px;color:rgb(255, 255, 255);text-shadow:2px 2px 4px #000000;"></i></a>&nbsp;&nbsp;
-                                    <a class="btn btn-danger"href="#" onclick="eliminarProducto({{ p.id }})"><i class="fa fa-trash fa-2x" aria-hidden="true" style="font-size:22px;color:rgb(255, 255, 255);text-shadow:2px 2px 4px #000000;"></i></a>
+                                    {% comment %} <a class="btn btn-success" onclick="return abrir_modal({{ p.id }})"><i class="fa fa-eye fa-2x" aria-hidden="true" style="font-size:22px;color:rgb(255, 255, 255);text-shadow:2px 2px 4px #000000;"></i></a>&nbsp;&nbsp; {% endcomment %}
+                                    <a class="btn btn-danger" href="#" onclick="eliminarProducto({{ p.id }})"><i class="fa fa-trash fa-2x" aria-hidden="true" style="font-size:22px;color:rgb(255, 255, 255);text-shadow:2px 2px 4px #000000;"></i></a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -56,13 +57,22 @@
             </div>
             <!-- Fin Seccion tablas-->
 
+        <dialog id="popup" class="modal-fade" style="border-radius: 0.8rem; border-color:#da79af;">
+                {% comment %} <span align="right" class="btn-close" id="btn-cerrar"> </span> {% endcomment %}
+                <div id="mod" width="200" ></div>
+        </dialog>
+
 {% endblock content%}
 
 {% block js %}
     <script>
+    // FUNCION para Sweetalert del borrado====================================================================
         function eliminarProducto(id){
             Swal.fire({
-                title: 'Estas seguro?',
+                imageUrl: '/../../../static/Iconos/eliminar_objeto.png',
+                imageWidth: 150,
+                imageHeight: 150,
+                title: 'Eliminar Producto',
                 showCancelButton: true,
                 confirmButtonText: 'Si, Eliminar',
                 confirmButtonColor: '#FF0000',
@@ -75,5 +85,44 @@
                 }
             })
         }
+
+    // FUNCION para modal de detalles de producto ==============================================================
+        let btnClose = document.getElementById("btn-cerrar");
+        let modal = document.getElementById("popup");
+        let prod = document.getElementById("prodId");
+
+        function abrir_modal(id){
+            $("#mod").html("");
+            var request = $.ajax({
+                type: "GET",
+                url: "{% url 'detalle_producto' %}",
+                data: {
+                    "id":id
+                },
+            });
+            request.done(function(response){
+                $("#mod").html(response);
+                modal.showModal();
+            });
+        }
+
+        function cerrar_modal(){
+            modal.close();
+        }
+
+    // FUNCIONES para resaltar la imagen seleccionada==========================================================================
+        function resaltar(id){
+            let element = document.getElementById(id.toString());
+            element.width = "100";
+            element.style.cssText = "padding:5px; height:auto; border-radius: 0.7rem; background-color:#da79af;";
+        }
+
+        function normal(id){
+            let element = document.getElementById(id.toString());
+            element.width = "80";
+            element.style.cssText = "padding:0px; height:auto; border-radius: 0.7rem;";
+        }
+    //==========================================================================================================================
+    
     </script>
 {% endblock js%}

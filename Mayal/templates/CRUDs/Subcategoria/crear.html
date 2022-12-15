@@ -12,7 +12,11 @@
     <div class="row justify-content-center">
         <div class="col-lg-7">
             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header"><h3 class="text-center font-weight-light my-4">Nueva Subcategoria</h3></div>
+                {% comment %} <div class="card-header"><h3 class="text-center font-weight-light my-4">Nueva Subcategoria</h3></div> {% endcomment %}
+                <h3 class="text-center font-weight-light my-4" id="titulo">
+                    <img src="/../../static/Iconos/agregar_subcategoria.png" width="120" height="auto"/>
+                    Nueva Subcategoría
+                </h3>
                 <div class="card-body">
                     {% if form.non_field_errors %}
                             {% for error in form.non_field_errors %}
@@ -31,7 +35,10 @@
                         </div>
 
                         <div class="mt-4 mb-0">
-                            <div class="d-grid"><input type="submit" value="Finalizar" class="btn btn-primary btn-block"></div>
+                            <div align="center">
+                                <input type="submit" value="Finalizar" class="btn btn-primary btn-block">&nbsp;&nbsp;
+                                <a class="btn btn-danger" href="{% url 'listar_categorias' %}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -42,4 +49,17 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var campo = $('#id_nombreSub').val();
+    let newTitle = '<img src="/../../static/Iconos/editar_subcategoria.png" width="120" height="auto"/> Editar Subcategoría';
+    window.onload = UpdateTitle();
+
+    function UpdateTitle(){
+        if(campo != "")
+            $("#titulo").html(newTitle);
+    }
+
+</script>
+
 {% endblock content %}

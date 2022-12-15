@@ -7,52 +7,82 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-7">
+        <div class="col-lg-auto">
             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header"><h3 class="text-center font-weight-light my-4">Editar Producto: {{producto}}</h3></div>
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">
+                        <img src="/../../static/Iconos/editar_objeto.png" width="100" height="auto"/>
+                        Editar Producto: {{producto}}
+                    </h3>
+                </div>
                 <div class="card-body">
                     <form method="post" role="form" action="" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="form-floating mb-3">
-                            {{form.nombreProd|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.coleccion|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.material|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.color|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.precio|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.existencias|as_crispy_field}}
-                        </div>
+                        <table>
+                            <tr>
+                                <td width="300" style="padding-right:5px;">
 
-                        <div class="form-floating mb-3">
-                            {{form.categoria|as_crispy_field}}
-                        </div>
-                        <div class="form-floating mb-3">
-                            {{form.subCategoria|as_crispy_field}}
-                        </div>
+                                    <label><B>Campos Obligatorios</B></label>
 
-                        <div class="form-floating mb-3">
-                            {{form.imagen|as_crispy_field}}
-                        </div>
+                                    <div class="form-floating mb-3">
+                                        {{form.nombreProd|as_crispy_field}}
+                                    </div>
 
-                        <div class="form-floating mb-3" align="center">
-                            <img src=" {{ producto.imagen.url }}" width="300" height="auto"/>
-                            <h6> Imágen Actual </h6>
-                        </div>
+                                    <div class="form-floating mb-3">
+                                        {{form.categoria|as_crispy_field}}
+                                    </div>
 
+                                    <label><B>Campos Opcionales</B></label>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.coleccion|as_crispy_field}}
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.material|as_crispy_field}}
+                                    </div>
+                                </td>
+                                <td width="300" style="padding-right:5px;">
+
+                                    <label>   </label>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.precio|as_crispy_field}}
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.subCategoria|as_crispy_field}}
+                                    </div>
+
+                                    <label>   </label>
+
+                                    <div class="form-floating mb-3">
+                                        {{form.existencias|as_crispy_field}}
+                                    </div>
+    
+                                    <div class="form-floating mb-3">
+                                        {{form.color|as_crispy_field}}
+                                    </div>
+                                </td>
+                                <td width="300" style="vertical-align: super; padding-top:28px;">
+                                    <div class="form-floating mb-3">
+                                        {{form.imagen|as_crispy_field}}
+                                    </div>
+
+                                    <div id="image_manager">
+                                        <div class="form-floating mb-3" align="center">
+                                            <img src="{{ producto.imagen.url }}" width="300" height="auto" style="border-radius: 0.7rem;"/>
+                                            <h6> Imagen Actual </h6>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
 
                         <div class="mt-4 mb-0" align="center">
                             {% comment %} <div class="d-grid"><input type="submit" value="Finalizar" class="btn btn-primary btn-block"></div> {% endcomment %}
                             <a class="btn btn-danger" href="{% url 'listar_productos' %}"><i class="fa fa-arrow-left"
-                                aria-hidden="true"></i> Regresar</a>
+                                aria-hidden="true"></i> Cancelar</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="submit" class="btn btn-success float-right"><i class="fa fa-check"
                                 aria-hidden="true"></i> Guardar</button>
@@ -116,6 +146,28 @@
             
             });
 
+        }
+    }
+
+//==================================================================================
+// Poner preview de la imagen a sustituir    
+    $("#id_imagen").change(function () {
+        filePreview(this);
+    });
+
+    let newHTML='<div class="form-floating mb-3" align="center"> <img src="{{ producto.imagen.url }}" width="100" height="auto" style="border-radius: 0.7rem;"/> <h6> Imagen Actual </h6> </div> <div class="form-floating mb-3" align="center"> <img src="" id="preview" width="200" height="auto" style="border-radius: 0.7rem;"/> <h6> Imagen Nueva </h6> </div>';
+
+    function filePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#image_manager").html(newHTML);
+
+                let element = document.getElementById("preview");
+                element.src = (e.target.result).toString();
+
+            }
+            reader.readAsDataURL(input.files[0]);
         }
     }
 </script>
